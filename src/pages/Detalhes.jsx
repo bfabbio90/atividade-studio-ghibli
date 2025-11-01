@@ -1,31 +1,52 @@
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { api } from "../services/api";
 import Loader from "../components/Loader";
-import "./Detalhes.css";
 
-export default function Detalhes() {
+function Detalhes() {
   const { id } = useParams();
-  const [animacao, setAnimacao] = useState(null);
+  const [film, setFilm] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await getAnimationById(id); // Tobias, Ainda vou importar essa função do services/api
-      setAnimation(data);
+    async function fetchFilm() {
+      try {
+        const response = await api.get(`/${id}`);
+        setFilm(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar detalhes:", error);
+      } finally {
+        setLoading(false);
+      }
     }
-    fetchData();
+
+    fetchFilm();
   }, [id]);
 
-  if (!animation) return <Loader />;
+  if (loading) return <Loader />;
+
+  if (!film) return <p>Filme não encontrado.</p>;
 
   return (
-    <div className="detalhes">
-      <img src={animacao.movie_banner} alt={animacao.title} className="detalhes-banner" />
-      <h1>{animacao.title}</h1>
-      <h3>{animacao.original_title}</h3>
-      <p className="descricao">{animacao.description}</p>
-      <p><strong>Diretor:</strong> {animacao.director}</p>
-      <p><strong>Lançamento:</strong> {animacao.release_date}</p>
-      <Link to="/animacoes" className="btn">Voltar</Link>
+    <div style={{ padding: "2rem" }}>
+      <h1>{film.title}</h1>
+      <img
+        src={film.image}
+        alt={film.title}
+        style={{ width: "300px", borderRadius: "10px" }}
+      />
+      <p>
+        <strong>Diretor:</strong> {film.director}
+      </p>
+      <p>
+        <strong>Produtor:</strong> {film.producer}
+      </p>
+      <p>
+        <strong>Lançamento:</strong> {film.release_date}
+      </p>
+      <p>{film.description}</p>
     </div>
   );
 }
+
+export default Detalhes;
