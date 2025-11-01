@@ -1,5 +1,6 @@
 import imagem from "../assets/images.png"
 import "@/styles/pages/Home.css";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -10,6 +11,9 @@ export default function Home() {
         Explore as animações mágicas do Studio Ghibli e descubra detalhes sobre
         seus filmes mais amados.
       </p>
+      <Link to="/animacoes" className="btn2">
+        Ver animes 
+      </Link>
     </div>
   );
 }
