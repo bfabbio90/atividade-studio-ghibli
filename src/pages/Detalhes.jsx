@@ -1,52 +1,32 @@
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { api } from "../services/api";
+import { getAnimationById } from "../services/api";
 import Loader from "../components/Loader";
+import "./Detalhes.css";
 
-function Detalhes() {
+export default function Detalhes() {
   const { id } = useParams();
-  const [film, setFilm] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [animation, setAnimation] = useState(null);
 
   useEffect(() => {
-    async function fetchFilm() {
-      try {
-        const response = await api.get(`/${id}`);
-        setFilm(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar detalhes:", error);
-      } finally {
-        setLoading(false);
-      }
+    async function fetchData() {
+      const data = await getAnimationById(id);
+      setAnimation(data);
     }
-
-    fetchFilm();
+    fetchData();
   }, [id]);
 
-  if (loading) return <Loader />;
-
-  if (!film) return <p>Filme não encontrado.</p>;
+  if (!animation) return <Loader />;
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>{film.title}</h1>
-      <img
-        src={film.image}
-        alt={film.title}
-        style={{ width: "300px", borderRadius: "10px" }}
-      />
-      <p>
-        <strong>Diretor:</strong> {film.director}
-      </p>
-      <p>
-        <strong>Produtor:</strong> {film.producer}
-      </p>
-      <p>
-        <strong>Lançamento:</strong> {film.release_date}
-      </p>
-      <p>{film.description}</p>
+    <div className="detalhes">
+      <img src={animation.movie_banner} alt={animation.title} className="detalhes-banner" />
+      <h1>{animation.title}</h1>
+      <h3>{animation.original_title}</h3>
+      <p className="descricao">{animation.description}</p>
+      <p><strong>Diretor:</strong> {animation.director}</p>
+      <p><strong>Lançamento:</strong> {animation.release_date}</p>
+      <Link to="/animacoes" className="btn">Voltar</Link>
     </div>
   );
 }
-
-export default Detalhes;
