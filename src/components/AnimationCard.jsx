@@ -1,14 +1,15 @@
-function AnimationCard({ filme }) {
-  if (!filme) return null;
+import { Link } from "react-router-dom";
+import "./AnimationCard.css";
 
+export default function AnimationCard({ animation }) {
   return (
-    <div>
-      <h2>{filme.title}</h2>
-      <p>Diretor: {filme.director}</p>
-      <p>Ano de Lançamento: {filme.release_date}</p>
-      <p>Descrição: {filme.description}</p>
+    <div className="card">
+      <img src={animation.image} alt={animation.title} className="card-img" />
+      <h2>{animation.title}</h2>
+      <p>{animation.original_title}</p>
+      <Link to={`/animacao/${animation.id}`} className="btn">
+        Detalhes
+      </Link>
     </div>
   );
 }
-
-export default AnimationCard;
