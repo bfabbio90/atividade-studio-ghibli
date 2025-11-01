@@ -1,0 +1,23 @@
+.sobre {
+  text-align: center;
+  padding: 40px;
+}
+
+.sobre h1 {
+  margin-bottom: 20px;
+}
+
+.sobre p {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: #444;
+}
+
+.sobre ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sobre li {
+  margin: 8px 0;
+}
