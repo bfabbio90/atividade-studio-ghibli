@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllAnimations } from "../services/api";
 import AnimationCard from "../components/AnimationCard";
 import Loader from "../components/Loader";
-import "../pages/Animacoes.css";
+import "@/styles/pages/Animacoes.css";
 
 export default function Animacoes() {
   const [animations, setAnimations] = useState([]);

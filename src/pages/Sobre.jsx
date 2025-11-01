@@ -1,4 +1,4 @@
-import "./Sobre.css";
+import "@/styles/pages/Sobre.css";
 
 export default function Sobre() {
   return (

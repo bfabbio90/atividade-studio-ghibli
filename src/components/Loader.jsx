@@ -1,10 +1,9 @@
+import "@/styles/components/Loader.css";
 
-function Loader({ menssagem = "Carregando..." }) {
+export default function Loader() {
   return (
-    <div>
-      <p>{menssagem}</p>
+    <div className="loader-container">
+      <div className="loader"></div>
     </div>
   );
 }
-
-export default Loader;

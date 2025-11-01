@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAnimationById } from "../services/api";
 import Loader from "../components/Loader";
-import "./Detalhes.css";
+import "@/styles/pages/Detalhes.css";
 
 export default function Detalhes() {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./AnimationCard.css";
+import "@/styles/components/AnimationCard.css";
 
 export default function AnimationCard({ animation }) {
   return (
